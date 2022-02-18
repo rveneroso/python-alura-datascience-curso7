@@ -1,4 +1,5 @@
 import seaborn as sns
+import matplotlib.pyplot as plt
 
 def plotar(origem_dados, titulo, label_eixox, label_eixoy, x, y):
     # Definindo a palheta de cores

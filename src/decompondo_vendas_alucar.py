@@ -1,5 +1,3 @@
-from time import strptime
-
 import pandas as pd
 import matplotlib.pyplot as plt
 import funcoes_graficos as fg
@@ -10,8 +8,8 @@ alucar = pd.read_csv('../data/alucar_convertido.csv')
 # de vendas criado no script alucar_analisando_vendas.py.
 
 # Gráfico com o aumento das vendas entre 2017 e 2018
-# fg.plotar(alucar,'Aumento nas Vendas da Alucar entre 2017 e 2018','Meses',
-#           'Vendas (R$)','mes','aumento')
+fg.plotar(alucar,'Aumento nas Vendas da Alucar entre 2017 e 2018','Meses',
+          'Vendas (R$)','mes','aumento')
 
 # Gráfico com a aceleração no aumento das vendas entre 2017 e 2018
 fg.plotar(alucar,'Aceleração do aumento nas Vendas da Alucar entre 2017 e 2018','Meses',
