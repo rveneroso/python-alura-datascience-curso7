@@ -1,6 +1,7 @@
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
+import funcoes_graficos as fg
 
 alucar = pd.read_csv('../data/alucar.csv')
 
@@ -27,22 +28,17 @@ mes       datetime64[ns]
 vendas             int64
 dtype: object
 '''
-# Realizando ajustes no gráfico. Observação: esses ajustes precisam ser feitos antes da linha onde o lineplot é
-# chamado. Caso contrário, as configurações não serão aplicadas.
 
-# Definindo a palheta de cores
-sns.set_palette('Accent')
-# Adicionando um grid ao gráfico
-sns.set_style('darkgrid')
-# Gera um gráfico para verificar se as vendas aumentaram com o passar do tempo.
-ax = sns.lineplot(x='mes',y='vendas',data=alucar)
-# Aumentando o tamanho da imagem para 12 x 6 polegadas
-ax.figure.set_size_inches(12,6)
-# Configurando um título para o gráfico. O título será alinhado à esquerda e terá o tamanho da fonte igual a 18.
-ax.set_title('Vendas da Alucar no Período de 2017 a 2018', loc='left', fontsize=18)
-# Definindo o label a ser exibido para o eixo x
-ax.set_xlabel('Meses', fontsize=14)
-ax.set_ylabel('Vendas (R$)', fontsize=14)
-plt.show()
+# Cria colunas que serão utilizadas posteriormente.
+# Adicionando uma coluna na qual fica registrado o aumento das vendas em relação ao mês anterior.
+alucar['aumento'] = alucar['vendas'].diff()
+# Adiciona a coluna que define a aceleração no crescimento das vendas
+alucar['aceleracao'] = alucar['aumento'].diff()
+
 # Salvando o arquivo com a coluna mes convertida para datetime.
-alucar.to_csv('../data/alucar_convertido.csv')
+alucar.to_csv('../data/alucar_convertido.csv', index=False)
+
+# Código refatorado para utilizar a função plotar().
+fg.plotar(alucar,'Vendas da Alucar no Período de 2017 a 2018','Meses',
+          'Vendas (R$)','mes','vendas')
+plt.show()
